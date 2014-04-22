@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>VE 0.1</title>
+
+        <!-- Core CSS -->
+        <link href="img/usdos-logo-seal.png" rel="shortcut icon">
+		<link href="../lib/bootstrap-3.1.1/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="../lib/Leaflet-0.7.2/dist/leaflet.css" />
+		<link rel="stylesheet" href="css/main.css" />
+		<link rel="stylesheet" href="css/screen.css" />
+		<!-- Custom styles for this template -->
+        <style>
+            html, body, #map {
+                height: 100%;
+                width: 100%;
+                overflow: hidden;
+            }
+            body {
+                padding-top: 50px;
+            }
+            input[type="radio"], input[type="checkbox"] {
+                margin: 0;
+            }
+            #loading {
+                position: absolute;
+                width: 220px;
+                height: 19px;
+                top: 50%;
+                left: 50%;
+                margin: -10px 0 0 -110px;
+                z-index: 20001;
+            }
+            #keywordBox {
+                -webkit-border-top-left-radius: 4px;
+                -webkit-border-bottom-left-radius: 4px;
+                -moz-border-top-left-radius: 4px;
+                -moz-border-bottom-left-radius: 4px;
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+            }
+            .leaflet-control-layers label {
+                font-weight: normal;
+                margin-bottom: 0px;
+            }
+            .table {
+                margin-bottom: 0px;
+            }
+
+            .navbar .navbar-brand {
+                font-weight: bold;
+                font-size: 25px;
+                color: white;
+				font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+				letter-spacing: 1px;
+            }
+            .navbar-collapse.in {
+                overflow-y: hidden;
+            }
+            .tt-dropdown-menu {
+                overflow: auto;
+            }
+            .tt-hint, .tt-query {
+                display: block;
+                width: 100%;
+                height: 34px;
+                padding: 6px 12px;
+                font-size: 14px;
+                border-radius: 4px;
+            }
+            .typeahead-header {
+                margin: 0 5px 5px 5px;
+                padding: 3px 0;
+                border-bottom: 2px solid #333;
+            }
+            .tt-suggestion + .tt-suggestion {
+                border-top: 1px solid #ccc;
+            }
+            .search-container {
+                width: 250px;
+            }
+            .leaflet-control-layers-expanded {
+                opacity: 0.9;
+            }
+            .leaflet-popup-content {
+               <!-- overflow-y:scroll;-->
+				height: 120px !important;
+				margin-top: 5px;
+                margin-bottom: 5px;
+                margin-left: 5px;
+                margin-right: 5px;
+            }
+            .leaflet-popup-content-wrapper {
+                border-radius: 5px;
+            }
+            @media (max-width: 992px) {
+                .navbar .navbar-brand {
+                    font-size: 18px;
+                    float: left;
+                }
+                .search-container {
+                    width: 150px;
+                }
+            }
+            @media (max-width: 767px){
+                .search-container {
+                    width: 100%;
+                }
+                .url-break {
+                    word-break: break-all;
+                    word-break: break-word;
+                    -webkit-hyphens: auto;
+                    hyphens: auto;
+                }
+            }
+            /* Print Handling */
+            @media print {
+                .navbar {
+                    display: none !important;
+                }
+                .leaflet-control-container {
+                    display: none !important;
+                }
+            }
+			
+			.marker-cluster div {
+				color: white;
+				font-weight: bold;
+				text-shadow: 1px 1px 5px gray;
+			}
+			
+			.leaflet-popup-content {
+				margin-right: 19px;
+			}
+			
+			#viewdetails {
+				overflow-y:scroll;
+				height: 95px !important;
+			}
+			#viewComments {
+				overflow-y:scroll;
+				height: 95px !important;
+			}
+			.navbar-inverse {
+			background-color: rgb(25,95,164);
+			}
+			.navbar-collapse, .navbar-inverse .navbar-form {
+				border-color: rgb(25,95,164);
+			}
+			.marker-cluster-small {
+				background-color: rgba(217, 121, 37, 0.75);
+			}
+			.marker-cluster-medium {
+				background-color: rgba(217, 121, 37, 0.75);
+			}
+			.marker-cluster-large {
+				background-color: rgba(217, 121, 37, 0.75);
+			}
+			
+			.info {
+				padding: 6px 8px;
+				font: 14px/16px Arial, Helvetica, sans-serif;
+				background: white;
+				background: rgba(255,255,255,0.8);
+				box-shadow: 0 0 15px rgba(0,0,0,0.2);
+				border-radius: 5px;
+			}
+			
+			.info h4 {
+				margin: 0 0 5px;
+				color: #777;
+			}
+
+			.legend {
+				text-align: left;
+				line-height: 18px;
+				color: #555;
+			}
+			
+			.legend i {
+				width: 18px;
+				height: 18px;
+				float: left;
+				margin-right: 8px;
+				opacity: 0.7;
+			}
+			
+			.dropdown-menu {
+				padding: 10px;
+			}
+			
+			.legend {
+				padding: 6px 8px;
+				font: 14px/18px Arial, Helvetica, sans-serif;
+				font-weight: bold;
+			}
+        </style>
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+		
+	 </head>
+	 <body>
+	    <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">VE</a>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav">
+					<li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#aboutModal').modal('show'); return false;">About</a></li>
+                </ul>
+            </div><!--/.navbar-collapse -->
+        </div>
+
+        <div id="map"></div>
+        
+		<div id="loading" style="display:block;">
+            <div class="loading-indicator">
+                <div class="progress progress-striped active">
+                    <div class="progress-bar progress-bar-info" style="width: 100%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="aboutModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Diplomacy Explorer</h4>
+                    </div>
+
+                    <div class="modal-body">
+                         <ul id="aboutTabs" class="nav nav-tabs">
+                            <li class="active">
+								<a href="#faqs" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;FAQs</a>
+							</li>
+                            <li>
+								<a href="#about" data-toggle="tab"><i class="fa fa-check-square"></i>&nbsp;About the project</a>
+							</li>
+                            <li>
+								<a href="#disclaimer" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Disclaimer</a>
+							</li>
+                            <li>
+                                <a href="#contact" data-toggle="tab"><i class="fa fa-envelope"></i>&nbsp;Contact us</a>
+                            </li>
+                        </ul>
+                        <div id="aboutTabsContent" class="tab-content" style="padding-top: 10px;">
+                            <div class="tab-pane fade active in" id="faqs">
+                                <p>Below are a number of frequently asked questions (FAQs). If an answer to your specific need is not provided, please contact our support team!</p>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        Questions
+                                    </div>
+                                    <ul class="list-group">
+                                        <li class="list-group-item">Question 1</li>
+                                        <li class="list-group-item">Question 2</li>
+                                        <li class="list-group-item">Question 3</li>
+                                        <li class="list-group-item">Question 4</li>
+                                        <li class="list-group-item">Question 5</li>
+                                        <li class="list-group-item">Question 6</li>
+                                        <li class="list-group-item">Question 7</li>
+                                        <li class="list-group-item">Question 8</li>
+                                        <li class="list-group-item">Question 9</li>
+                                        <li class="list-group-item">Question 10</li>
+                                    </ul>
+                                </div>
+                            </div>
+							<div class="tab-pane fade" id="about">
+                                <p>This is a proof-of-concept for a revamped and updated Diplomacy Explorer web app.</p>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        Features
+                                    </div>
+                                    <ul class="list-group">
+                                        <li class="list-group-item">This app is mobile ready!</li>
+                                        <li class="list-group-item">Data citations and downloads</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade text-danger" id="disclaimer">
+                                <p>This tool and the information provided herein are solely a proof-of-concept being developed by the Office of eDiplomacy's Geo|DST, on behalf of Public Affairs. If you are interested in this project, please direct your feedback to eDip and Public Affairs!</p>
+                            </div>
+                            <div class="tab-pane fade" id="contact">
+                                <form id="contact-form">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label for="name">Name:</label>
+                                            <input type="text" class="form-control" id="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email:</label>
+                                            <input type="text" class="form-control" id="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="comment">Comment:</label>
+                                            <textarea class="form-control" rows="3" id="comment"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal">Submit</button>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+				
+		<script src="../lib/jquery/jquery-1.11.0.min.js"></script>
+		<script src="../lib/bootstrap-3.1.1/dist/js/bootstrap.js"></script>
+		<script type="text/javascript" src="js/host.js"></script>
+		<script type="text/javascript" src="../lib/Leaflet-0.7.2/dist/leaflet-src.js"></script>
+        <script type="text/javascript">
+			var urlWhole = "http://" + host + "/geoserver/opengeo/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=opengeo%3APetro_Caribe_Analysis_min_50m&outputformat=json&Filter=<Filter><PropertyIsEqualTo><PropertyName>Analysis</PropertyName><Literal>1</Literal></PropertyIsEqualTo></Filter>";
+			//var urlWhole = "http://" + host + "/geoserver/opengeo/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=opengeo%3APetro_Caribe_Analysis_min_50m&outputformat=json";
+			
+			function getGeoJson(data) {
+				geoJsonLayer1 = new L.geoJson(data, {style: Style4_A, onEachFeature: onEachFeature, attribution: cmAttr});
+				geoJsonLayer2 = new L.geoJson(data, {style: Style4_B, onEachFeature: onEachFeature, attribution: cmAttr});
+			}
+			
+			$.ajax({
+				url: urlWhole,
+				dataType: 'json',
+				jsonpCallback: getGeoJson,
+				success: getGeoJson
+			});
+			
+			var cmAttr = "<a href='mailto:dittemoremb@state.gov'>eDiplomacy Geo|DST</a>",
+			//cmAttr = 'Data: <a href="http://www.eia.gov/countries/data.cfm" title="U.S. Energy Information Administration">EIA</a>, <a href="http://www.openstreetmap.org/" title="&copy; OpenStreetMap contributors">OpenStreetMap</a>, <a href="http://www.cloudmade.com/" title="&copy; 2011 CloudMade">CloudMade</a>, <a href="http://www.stamen.com/" title="Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under CC BY SA.">Stamen Design</a>',
+			cmUrl = 'http://{s}.tile.cloudmade.com/0de6cf4ab5c94f978d85a48c6413b382/{styleId}/256/{z}/{x}/{y}.png';
+		
+			var minimal   = L.tileLayer(cmUrl, {styleId: 22677, attribution: cmAttr});
+			
+			var osm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+				{ attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors' }
+			);
+
+			function getColor4(d) {
+				if (d == 'A1') {
+					return	'#fecc5c'
+				} else if (d == 'A2') {
+					return	'#f68c3f'
+				} else if (d == 'B1') {
+					return	'#bdd7e7'
+				} else if (d == 'B2') {
+					return	'#6baed6'
+				} else {
+					return	'#ddd';
+				}
+			}
+			
+			function getColor9(d) {
+				if (d == 'A1') {
+					return	'#E7775F'
+				} else if (d == 'A2') {
+					return	'#AC6361'
+				} else if (d == 'A3') {
+					return	'#6A605F'
+				} else if (d == 'B1') {
+					return	'#F3B8A6'
+				} else if (d == 'B2') {
+					return	'#ACA3A4'
+				} else if (d == 'B3') {
+					return	'#5B8EA1'
+				} else if (d == 'C1') {
+					return	'#EBEAE8'
+				} else if (d == 'C2') {
+					return	'#A3D6F5'
+				} else if (d == 'C3') {
+					return	'#31B2E8'
+				} else {
+					return	'#ddd';
+				}
+			}
+			
+			function Style4_A(feature) {
+				return {
+					weight: 1,
+					opacity: 1,
+					color: 'white',
+					//fillOpacity: 0.7,
+					fillOpacity: 1,
+					fillColor: getColor4(feature.properties.Cell_1)
+				};
+			}
+			
+			function Style4_B(feature) {
+				return {
+					weight: 1,
+					opacity: 1,
+					color: 'white',
+					//fillOpacity: 0.7,
+					fillOpacity: 1,
+					fillColor: getColor4(feature.properties.Cell_2)
+				};
+			}
+			
+			function Style9(feature) {
+				return {
+					weight: 1,
+					opacity: 1,
+					color: 'white',
+					//fillOpacity: 0.7,
+					fillOpacity: 1,
+					fillColor: getColor9(feature.properties.Cell)
+				};
+			}
+			
+			var map = new L.Map('map', {
+				zoomControl: false,
+				center: [10, -75],
+				maxZoom: 8,
+				minZoom: 1,
+				zoom: 5,
+				maxBounds: [
+					//south west
+					[-30, -160],
+					//north east
+					[50, 0]
+				],
+				layers: [minimal]
+			});
+			
+			
+			new L.Control.Zoom({ position: 'topright' }).addTo(map);
+			
+			$(document).one("ajaxStop", function() {
+               map.addLayer(geoJsonLayer1);
+               var dataLayers = {
+					"Quantiles/Jenks":geoJsonLayer1,
+					"50th Percentiles":geoJsonLayer2
+				};
+			
+				L.control.layers(dataLayers).addTo(map);
+			
+				$("#loading").hide();
+			});
+			
+			var legend = L.control({position: 'bottomleft'});
+			
+			legend.onAdd = function (map) {
+				var div = L.DomUtil.create('div', 'info legend'),
+				grades = ['No data', 1, 10, 30, 65, 100, 200, 300, 1000],
+				// this is something like a subheader
+				labels = [],
+				from;
+
+				for (var i = 0; i < grades.length; i++) {
+					from = grades[i];
+					to = grades[i + 1];
+
+					labels.push(
+						'<i style="background:' + getColor4(grades[i]) + '"></i>' +
+						from[i]
+					);
+				}
+				
+				var keyName = "<h4>Map Key</h4>";
+				var keyNote = "<h5 class='lorem'></h5>";
+				var keyImg = "<div><img src='img/C_map_legend3.png' /></div>";
+				var key = labels.join('<br>');
+				//div.innerHTML = keyName + labels.join('<br>');
+				div.innerHTML = keyImg;
+			
+				return div;
+			};
+			
+			function highlightFeature(e) {
+				var layer = e.target;
+
+				layer.setStyle({
+					weight: 2,
+					color: '#666',
+					dashArray: '',
+					fillOpacity: 0.7
+				});
+
+				if (!L.Browser.ie && !L.Browser.opera) {
+					layer.bringToFront();
+				}
+			}
+			
+			function resetHighlight(e) {
+				geoJsonLayer1.resetStyle(e.target);
+				//geoJsonLayer2.resetStyle(e.target);
+			}
+			
+			function zoomToFeature(e) {
+				map.fitBounds(e.target.getBounds());
+			}
+
+			var popup = L.popup();
+
+			function onEachFeature(feature, layer) {
+				layer.on({
+				//mouseover: highlightFeature,
+				//mouseout: resetHighlight
+				//click: zoomToFeature
+			});
+			
+			var popupContent = "<h4>" + feature.properties.Country + "</h4><h5>Debt to GDP Ratio: " + feature.properties.DebtToGDP_Ratio_2013 + "%</h5><h5>Annual Financing: " + feature.properties.Annual_Financing_2012 + "% GDP</h5><h5>IMF Program: " + feature.properties.IMF_Program_2013 + "</h5>";
+			//var popupContent = "<h4>" + feature.properties.Country + "</h4><h5>Nominal GDP (2013): " + feature.properties.Nominal_GDP_2013 + "%</h5><h5>Debt to GDP Ratio: " + feature.properties.DebtToGDP_Ratio_2013 + "%</h5><h5>Annual Financing: " + feature.properties.Annual_Financing_2012 + "% GDP</h5><h5>IMF Program: " + feature.properties.IMF_Program_2013 + "</h5>";
+				if (feature.properties && feature.properties.popupContent) {
+					popupContent += feature.properties.popupContent;
+				}
+				layer.bindPopup(popupContent);
+			}
+			
+			legend.addTo(map);
+			
+        </script>
+		<script type="text/javascript">
+		</script>  
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			siteParams();
+			ga('create', gaID, host);
+			ga('send', 'pageview');
+		</script>
+    </body>
+</html>
