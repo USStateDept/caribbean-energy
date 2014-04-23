@@ -327,6 +327,11 @@
 			function getGeoJson(data) {
 				geoJsonLayer1 = new L.geoJson(data, {style: Style4_A, onEachFeature: onEachFeature, attribution: cmAttr});
 				geoJsonLayer2 = new L.geoJson(data, {style: Style4_B, onEachFeature: onEachFeature, attribution: cmAttr});
+				geoJsonLayerDebtToGDP = new L.geoJson(data, {style: StyleDebtToGDP, onEachFeature: onEachFeature, attribution: cmAttr});
+				geoJsonLayerAF = new L.geoJson(data, {style: StyleAF, onEachFeature: onEachFeature, attribution: cmAttr});
+				geoJsonLayerGDP = new L.geoJson(data, {style: StyleGDP, onEachFeature: onEachFeature, attribution: cmAttr});
+				geoJsonLayerF_GDP = new L.geoJson(data, {style: StyleF_GDP, onEachFeature: onEachFeature, attribution: cmAttr});
+				geoJsonLayerVoteCoin = new L.geoJson(data, {style: StyleVoteCoin, onEachFeature: onEachFeature, attribution: cmAttr});
 			}
 			
 			$.ajax({
@@ -384,6 +389,86 @@
 				}
 			}
 			
+			function getColorDebtToGDP(d) {
+				if (d > 100) {
+					return	'#fecc5c'
+				} else if (d > 70) {
+					return	'#f68c3f'
+				} else if (d > 50) {
+					return	'#bdd7e7'
+				} else if (d > 40) {
+					return	'#6baed6'
+				} else if (d > 25) {
+					return	'#6baed6'
+				} else {
+					return	'#ddd';
+				}
+			}
+			
+			function getColorAF(d) {
+				if (d > 6) {
+					return	'#fecc5c'
+				} else if (d > 4) {
+					return	'#f68c3f'
+				} else if (d > 2) {
+					return	'#bdd7e7'
+				} else if (d > 1) {
+					return	'#6baed6'
+				} else if (d == 0) {
+					return	'#6baed6'
+				} else {
+					return	'#ddd';
+				}
+			}
+			
+			function getColorGDP(d) {
+				if (d > 100000000000) {
+					return	'#fecc5c'
+				} else if (d > 50000000000) {
+					return	'#f68c3f'
+				} else if (d > 20000000000) {
+					return	'#f68c3f'
+				} else if (d > 5000000000) {
+					return	'#bdd7e7'
+				} else if (d > 2500000000) {
+					return	'#6baed6'
+				} else {
+					return	'#ddd';
+				}
+			}
+			
+			function getColorF_GDP(d) {
+				if (d > 100000) {
+					return	'#fecc5c'
+				} else if (d > 50000) {
+					return	'#f68c3f'
+				} else if (d > 25000) {
+					return	'#f68c3f'
+				} else if (d > 10000) {
+					return	'#bdd7e7'
+				} else if (d > 1000) {
+					return	'#6baed6'
+				} else {
+					return	'#ddd';
+				}
+			}
+			
+			function getColorVoteCoin(d) {
+				if (d > 1.25) {
+					return	'#fecc5c'
+				} else if (d > 1.1) {
+					return	'#f68c3f'
+				} else if (d > 1) {
+					return	'#f68c3f'
+				} else if (d > .9) {
+					return	'#bdd7e7'
+				} else if (d > .75) {
+					return	'#6baed6'
+				} else {
+					return	'#ddd';
+				}
+			}
+			
 			function Style4_A(feature) {
 				return {
 					weight: 1,
@@ -417,6 +502,61 @@
 				};
 			}
 			
+			function StyleDebtToGDP(feature) {
+				return {
+					weight: 1,
+					opacity: 1,
+					color: 'white',
+					//fillOpacity: 0.7,
+					fillOpacity: 0.85,
+					fillColor: getColorDebtToGDP(feature.properties.DebtToGDP_Ratio_2013)
+				};
+			}
+			
+			function StyleAF(feature) {
+				return {
+					weight: 1,
+					opacity: 1,
+					color: 'white',
+					//fillOpacity: 0.7,
+					fillOpacity: 0.85,
+					fillColor: getColorAF(feature.properties.Annual_Financing_2012)
+				};
+			}
+			
+			function StyleGDP(feature) {
+				return {
+					weight: 1,
+					opacity: 1,
+					color: 'white',
+					//fillOpacity: 0.7,
+					fillOpacity: 0.85,
+					fillColor: getColorGDP(feature.properties.Nominal_GDP_USD_2013)
+				};
+			}
+			
+			function StyleF_GDP(feature) {
+				return {
+					weight: 1,
+					opacity: 1,
+					color: 'white',
+					//fillOpacity: 0.7,
+					fillOpacity: 0.85,
+					fillColor: getColorGDP(feature.properties.F_GDP)
+				};
+			}
+			
+			function StyleVoteCoin(feature) {
+				return {
+					weight: 1,
+					opacity: 1,
+					color: 'white',
+					//fillOpacity: 0.7,
+					fillOpacity: 0.85,
+					fillColor: getColorGDP(feature.properties.VoteCoin)
+				};
+			}
+			
 			var map = new L.Map('map', {
 				zoomControl: false,
 				center: [10, -75],
@@ -439,7 +579,12 @@
                map.addLayer(geoJsonLayer1);
                var dataLayers = {
 					"<small>Quantiles/Jenks</small>":geoJsonLayer1,
-					"<small>50th Percentiles</small>":geoJsonLayer2
+					//"<small>50th Percentiles</small>":geoJsonLayer2,
+					"<small>Debt-To-GDP Ratio (2013)</small>":geoJsonLayerDebtToGDP,
+					"<small>Annual Financing (2012)</small>":geoJsonLayerAF,
+					"<small>Nominal GDP (2013)</small>":geoJsonLayerGDP,
+					"<small>U.S. Foreign Assistance as a Percent GDP</small>":geoJsonLayerF_GDP,
+					"<small>Distance from U.S. Voting Position in the U.N.</small>":geoJsonLayerVoteCoin,
 				};
 			
 				L.control.layers(dataLayers).addTo(map);
@@ -509,7 +654,7 @@
 				//click: zoomToFeature
 			});
 			
-			var popupContent = "<h4>" + feature.properties.Country + "</h4><h5>Debt to GDP Ratio: " + feature.properties.DebtToGDP_Ratio_2013 + "%</h5><h5>Annual Financing: " + feature.properties.Annual_Financing_2012 + "% GDP</h5><h5>IMF Program: " + feature.properties.IMF_Program_2013 + "</h5>";
+			var popupContent = "<h4>" + feature.properties.Country + "</h4><h5>Nominal GDP (2013): $" + feature.properties.Nominal_GDP_USD_2013 + "</h5><h5>Debt to GDP Ratio: " + feature.properties.DebtToGDP_Ratio_2013 + "%</h5><h5>Annual Financing: " + feature.properties.Annual_Financing_2012 + "% GDP</h5><h5>U.S. Foreign Assistance: " + feature.properties.F_GDP + "% GDP</h5><h5>Distance from U.S. Voting Position in the U.N.: " + feature.properties.VoteCoin + "</h5><h5>IMF Program: " + feature.properties.IMF_Program_2013 + "</h5>";
 			//var popupContent = "<h4>" + feature.properties.Country + "</h4><h5>Nominal GDP (2013): " + feature.properties.Nominal_GDP_2013 + "%</h5><h5>Debt to GDP Ratio: " + feature.properties.DebtToGDP_Ratio_2013 + "%</h5><h5>Annual Financing: " + feature.properties.Annual_Financing_2012 + "% GDP</h5><h5>IMF Program: " + feature.properties.IMF_Program_2013 + "</h5>";
 				if (feature.properties && feature.properties.popupContent) {
 					popupContent += feature.properties.popupContent;
