@@ -438,15 +438,15 @@
 			}
 			
 			function getColorF_GDP(d) {
-				if (d > 100000) {
+				if (d > 1) {
 					return	'#fecc5c'
-				} else if (d > 50000) {
+				} else if (d > .7) {
 					return	'#f68c3f'
-				} else if (d > 25000) {
+				} else if (d > .4) {
 					return	'#f68c3f'
-				} else if (d > 10000) {
+				} else if (d > .15) {
 					return	'#bdd7e7'
-				} else if (d > 1000) {
+				} else if (d > .05) {
 					return	'#6baed6'
 				} else {
 					return	'#ddd';
@@ -542,7 +542,7 @@
 					color: 'white',
 					//fillOpacity: 0.7,
 					fillOpacity: 0.85,
-					fillColor: getColorGDP(feature.properties.F_GDP)
+					fillColor: getColorF_GDP(feature.properties.F_GDP)
 				};
 			}
 			
@@ -553,7 +553,7 @@
 					color: 'white',
 					//fillOpacity: 0.7,
 					fillOpacity: 0.85,
-					fillColor: getColorGDP(feature.properties.VoteCoin)
+					fillColor: getColorVoteCoin(feature.properties.VoteCoin)
 				};
 			}
 			
@@ -583,7 +583,7 @@
 					"<small>Debt-To-GDP Ratio (2013)</small>":geoJsonLayerDebtToGDP,
 					"<small>Annual Financing (2012)</small>":geoJsonLayerAF,
 					"<small>Nominal GDP (2013)</small>":geoJsonLayerGDP,
-					"<small>U.S. Foreign Assistance as a Percent GDP</small>":geoJsonLayerF_GDP,
+					"<small>U.S. Foreign Assistance</small>":geoJsonLayerF_GDP,
 					"<small>Distance from U.S. Voting Position in the U.N.</small>":geoJsonLayerVoteCoin,
 				};
 			
