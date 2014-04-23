@@ -396,7 +396,7 @@
 					opacity: 1,
 					color: 'white',
 					//fillOpacity: 0.7,
-					fillOpacity: 1,
+					fillOpacity: 0.85,
 					fillColor: getColor4(feature.properties.Cell_1)
 				};
 			}
@@ -407,7 +407,7 @@
 					opacity: 1,
 					color: 'white',
 					//fillOpacity: 0.7,
-					fillOpacity: 1,
+					fillOpacity: 0.85,
 					fillColor: getColor4(feature.properties.Cell_2)
 				};
 			}
@@ -418,7 +418,7 @@
 					opacity: 1,
 					color: 'white',
 					//fillOpacity: 0.7,
-					fillOpacity: 1,
+					fillOpacity: 0.85,
 					fillColor: getColor9(feature.properties.Cell)
 				};
 			}
@@ -444,8 +444,8 @@
 			$(document).one("ajaxStop", function() {
                map.addLayer(geoJsonLayer1);
                var dataLayers = {
-					"Quantiles/Jenks":geoJsonLayer1,
-					"50th Percentiles":geoJsonLayer2
+					"<small>Quantiles/Jenks</small>":geoJsonLayer1,
+					"<small>50th Percentiles</small>":geoJsonLayer2
 				};
 			
 				L.control.layers(dataLayers).addTo(map);
