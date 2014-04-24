@@ -401,87 +401,87 @@
 				} else if (d == 'B2') {
 					return	'#6baed6'
 				} else {
-					return	'#ddd';
+					return	'#dedddd';
 				}
 			}
 			
 			function getColorDebtToGDP(d) {
 				if (d > 100) {
-					return	'#fecc5c'
+					return	'#006592'
 				} else if (d > 70) {
-					return	'#f68c3f'
+					return	'#007ba4'
 				} else if (d > 50) {
-					return	'#bdd7e7'
+					return	'#5094b8'
 				} else if (d > 40) {
-					return	'#6baed6'
+					return	'#84b1cd'
 				} else if (d > 25) {
-					return	'#6baed6'
+					return	'#bed7e7'
 				} else {
-					return	'#ddd';
+					return	'#dedddd';
 				}
 			}
 			
 			function getColorAF(d) {
 				if (d > 6) {
-					return	'#fecc5c'
+					return	'#d3681b'
 				} else if (d > 4) {
-					return	'#f68c3f'
+					return	'#dd7f27'
 				} else if (d > 2) {
-					return	'#bdd7e7'
+					return	'#e69636'
 				} else if (d > 1) {
-					return	'#6baed6'
+					return	'#f1af48'
 				} else if (d == 0) {
-					return	'#6baed6'
+					return	'#fecc5d'
 				} else {
-					return	'#ddd';
+					return	'#dedddd';
 				}
 			}
 			
 			function getColorGDP(d) {
 				if (d > 100000000000) {
-					return	'#fecc5c'
+					return	'#51493f'
 				} else if (d > 50000000000) {
-					return	'#f68c3f'
+					return	'#6d6252'
 				} else if (d > 20000000000) {
-					return	'#f68c3f'
+					return	'#8d7f68'
 				} else if (d > 5000000000) {
-					return	'#bdd7e7'
+					return	'#b2a483'
 				} else if (d > 2500000000) {
-					return	'#6baed6'
+					return	'#e0d2a4'
 				} else {
-					return	'#ddd';
+					return	'#dedddd';
 				}
 			}
 			
 			function getColorF_GDP(d) {
 				if (d > 1) {
-					return	'#fecc5c'
+					return	'#51493f'
 				} else if (d > .7) {
-					return	'#f68c3f'
+					return	'#6d6252'
 				} else if (d > .4) {
-					return	'#f68c3f'
+					return	'#8d7f68'
 				} else if (d > .15) {
-					return	'#bdd7e7'
+					return	'#b2a483'
 				} else if (d > .05) {
-					return	'#6baed6'
+					return	'#e0d2a4'
 				} else {
-					return	'#ddd';
+					return	'#dedddd';
 				}
 			}
 			
 			function getColorVoteCoin(d) {
 				if (d > 1.25) {
-					return	'#fecc5c'
+					return	'#51493f'
 				} else if (d > 1.1) {
-					return	'#f68c3f'
+					return	'#6d6252'
 				} else if (d > 1) {
-					return	'#f68c3f'
+					return	'#8d7f68'
 				} else if (d > .9) {
-					return	'#bdd7e7'
+					return	'#b2a483'
 				} else if (d > .75) {
-					return	'#6baed6'
+					return	'#e0d2a4'
 				} else {
-					return	'#ddd';
+					return	'#dedddd';
 				}
 			}
 			
@@ -568,32 +568,38 @@
 			
 			var sidebarBivariate = L.control.sidebar("sidebarBivariate", {
 				closeButton: true,
-				position: "left"
+				position: "left",
+				autoPan: false
 			});
 			
 			var sidebarDebtToGDP = L.control.sidebar("sidebarDebtToGDP", {
 				closeButton: true,
-				position: "left"
+				position: "left",
+				autoPan: false
 			});
 			
 			var sidebarAF = L.control.sidebar("sidebarAF", {
 				closeButton: true,
-				position: "left"
+				position: "left",
+				autoPan: false
 			});
 			
 			var sidebarGDP = L.control.sidebar("sidebarGDP", {
 				closeButton: true,
-				position: "left"
+				position: "left",
+				autoPan: false
 			});
 			
 			var sidebarF_GDP = L.control.sidebar("sidebarF_GDP", {
 				closeButton: true,
-				position: "left"
+				position: "left",
+				autoPan: false
 			});
 			
 			var sidebarVoteCoin = L.control.sidebar("sidebarVoteCoin", {
 				closeButton: true,
-				position: "left"
+				position: "left",
+				autoPan: false
 			});
 			
 			new L.Control.Zoom({ position: 'topright' }).addTo(map);
@@ -617,18 +623,18 @@
 				allLayersGroup.clearLayers();
 			}
 			
-			legendDebtToGDP.onAdd = function (map) {
+			 legendDebtToGDP.onAdd = function (map) {
 				currentLegend = legendDebtToGDP;
 				currentSidebar = sidebarDebtToGDP;
 				sidebarDebtToGDP.addTo(map);
 				var div = L.DomUtil.create('div'),
-					grades = ['1', '2', '3', 'No Data'],
+					grades = ['100', '70', '50', '40', '25'],
 					// this is something like a subheader
 					labels = [],
 					from;
 
 				for (var i = 0; i < grades.length; i++) {
-					from = ['1', '2', '3', 'No data'];
+					from = ['100 or more', '71 to 100', '51 to 70', '41 to 50', '25 to 40', 'No Data'];
 					
 					labels.push(
 						'<i style="background:' + getColorDebtToGDP(grades[i]) + '"></i>' +
