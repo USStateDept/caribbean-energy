@@ -24,18 +24,22 @@ SELECT
 FROM opengeo."ne_50m_admin_0_countries_lakes" LEFT OUTER JOIN public."Petro_Caribe_Analysis_min" ON (ne_50m_admin_0_countries_lakes.sovereignt = "Petro_Caribe_Analysis_min"."Country")
 WHERE
 	ne_50m_admin_0_countries_lakes.sovereignt = 'Argentina' OR
+	ne_50m_admin_0_countries_lakes.sovereignt = 'Antigua and Barbuda' OR
 	ne_50m_admin_0_countries_lakes.sovereignt = 'Barbados' OR
 	ne_50m_admin_0_countries_lakes.sovereignt = 'Belize' OR
+	ne_50m_admin_0_countries_lakes.sovereignt = 'Brazil' OR
 	ne_50m_admin_0_countries_lakes.sovereignt = 'Chile' OR
 	ne_50m_admin_0_countries_lakes.sovereignt = 'Colombia' OR
 	ne_50m_admin_0_countries_lakes.sovereignt = 'Costa Rica' OR
 	ne_50m_admin_0_countries_lakes.sovereignt = 'Cuba' OR
-	ne_50m_admin_0_countries_lakes.sovereignt = 'Dominca' OR
+	ne_50m_admin_0_countries_lakes.sovereignt = 'Dominica' OR
 	ne_50m_admin_0_countries_lakes.sovereignt = 'Dominican Republic' OR
 	ne_50m_admin_0_countries_lakes.sovereignt = 'Ecuador' OR
 	ne_50m_admin_0_countries_lakes.sovereignt = 'El Salvador' OR
 	ne_50m_admin_0_countries_lakes.sovereignt = 'France' OR
 	ne_50m_admin_0_countries_lakes.sovereignt = 'Grenada' OR
+	ne_50m_admin_0_countries_lakes.sovereignt = 'Guatemala' OR
+	ne_50m_admin_0_countries_lakes.sovereignt = 'Guyana' OR
 	ne_50m_admin_0_countries_lakes.sovereignt = 'Haiti' OR
 	ne_50m_admin_0_countries_lakes.sovereignt = 'Honduras' OR
 	ne_50m_admin_0_countries_lakes.sovereignt = 'Jamaica' OR
