@@ -393,13 +393,13 @@
 
 			function getColorBivariate(d) {
 				if (d == 'A1') {
-					return	'#fecc5c'
+					return	'#fecc5d'
 				} else if (d == 'A2') {
-					return	'#f68c3f'
+					return	'#db8468'
 				} else if (d == 'B1') {
-					return	'#bdd7e7'
+					return	'#d4bfb5'
 				} else if (d == 'B2') {
-					return	'#6baed6'
+					return	'#6badd6'
 				} else {
 					return	'#dedddd';
 				}
@@ -471,15 +471,15 @@
 			
 			function getColorVoteCoin(d) {
 				if (d > 1.25) {
-					return	'#51493f'
+					return	'#009250'
 				} else if (d > 1.1) {
-					return	'#6d6252'
+					return	'#7cad76'
 				} else if (d > 1) {
-					return	'#8d7f68'
-				} else if (d > .9) {
-					return	'#b2a483'
-				} else if (d > .75) {
 					return	'#e0d2a4'
+				} else if (d > .9) {
+					return	'#d28963'
+				} else if (d > .75) {
+					return	'#c54831'
 				} else {
 					return	'#dedddd';
 				}
@@ -628,14 +628,14 @@
 				currentSidebar = sidebarDebtToGDP;
 				sidebarDebtToGDP.addTo(map);
 				var div = L.DomUtil.create('div'),
-					grades = ['100', '70', '50', '40', '25'],
+					grades = ['101', '71', '51', '41', '26', '0'],
 					// this is something like a subheader
 					labels = [],
 					from;
 
 				for (var i = 0; i < grades.length; i++) {
 					from = ['100 or more', '71 to 100', '51 to 70', '41 to 50', '25 to 40', 'No Data'];
-					
+					to = 
 					labels.push(
 						'<i style="background:' + getColorDebtToGDP(grades[i]) + '"></i>' +
 						from[i]
@@ -657,13 +657,13 @@
 				currentSidebar = sidebarAF;
 				sidebarAF.addTo(map);
 				var div = L.DomUtil.create('div'),
-					grades = ['1', '2', '3', 'No Data'],
+					grades = ['6.1', '4.1', '2.1', '1.1', '0', '-1'],
 					// this is something like a subheader
 					labels = [],
 					from;
 
 				for (var i = 0; i < grades.length; i++) {
-					from = ['1', '2', '3', 'No data'];
+					from = ['Greater than 6', '4.1 to 6','2.1 to 4', '1.1 to 2', '1 or less', 'No data'];
 					
 					labels.push(
 						'<i style="background:' + getColorAF(grades[i]) + '"></i>' +
@@ -702,8 +702,9 @@
 				var name = "Debt-To-GDP (2013)<br /><strong><em><center>and</center></em></strong>Annual Financing (2012)";
 				var description = "<h5 class='lorem'></h5>";
 				var keyText = "";
+				var keyImg = "<div><img src='img/Bivariate_Key.png' style='width: 150px; height: 150px;' /></div>";
 				var key = labels.join('<br>');
-				sidebarBivariate.setContent('<h4>' + name + "</h4><div class='legend'>" + key + '</div>');
+				sidebarBivariate.setContent('<h4>' + name + "</h4><div class='legend'>" + keyImg + '</div>');
 				
 				return div;
 			};
@@ -713,13 +714,13 @@
 				currentSidebar = sidebarGDP;
 				sidebarGDP.addTo(map);
 				var div = L.DomUtil.create('div'),
-					grades = ['1', '2', '3', 'No Data'],
+					grades = ['100000000001', '50000000001', '20000000001', '5000000001', '2500000001', 'No Data'],
 					// this is something like a subheader
 					labels = [],
 					from;
 
 				for (var i = 0; i < grades.length; i++) {
-					from = ['1', '2', '3', 'No data'];
+					from = ['Greater than 100', '50 to 100', '20 to 49', '5 to 19', '2.5 to 4', 'No data'];
 					
 					labels.push(
 						'<i style="background:' + getColorGDP(grades[i]) + '"></i>' +
@@ -729,7 +730,7 @@
 
 				var name = "GDP (2013)";
 				var description = "<h5 class='lorem'></h5>";
-				var keyText = "";
+				var keyText = "$USD billion";
 				var key = labels.join('<br>');
 				sidebarGDP.setContent('<h4>' + name + "</h4><div class='legend'>" + key + '</div>');
 				
@@ -741,13 +742,13 @@
 				currentSidebar = sidebarF_GDP;
 				sidebarF_GDP.addTo(map);
 				var div = L.DomUtil.create('div'),
-					grades = ['1', '2', '3', 'No Data'],
+					grades = ['1.001', '0.701', '0.401', '0.151', '0.051','No Data'],
 					// this is something like a subheader
 					labels = [],
 					from;
 
 				for (var i = 0; i < grades.length; i++) {
-					from = ['1', '2', '3', 'No data'];
+					from = ['Greater than 100', '70 to 100', '40 to 69', '15 to 39', '5 to 14', 'No data'];
 					
 					labels.push(
 						'<i style="background:' + getColorF_GDP(grades[i]) + '"></i>' +
@@ -764,21 +765,22 @@
 				return div;
 			};
 			
+			
 			legendVoteCoin.onAdd = function (map) {
 				currentLegend = legendVoteCoin;
 				currentSidebar = sidebarVoteCoin;
 				sidebarVoteCoin.addTo(map);
 				var div = L.DomUtil.create('div'),
-					grades = ['1', '2', '3', 'No Data'],
+					grades = ['1.251', '1.11', '1.01', '0.91', '0.751', 'No Data'],
 					// this is something like a subheader
 					labels = [],
 					from;
 
 				for (var i = 0; i < grades.length; i++) {
-					from = ['1', '2', '3', 'No data'];
+					from = ['Greater than 1.25', '1.1 to 1.25', '1.01 to 1.09', '0.9 to 1', '0.75 to .89', 'No data'];
 					
 					labels.push(
-						'<i style="background:' + getColorF_GDP(grades[i]) + '"></i>' +
+						'<i style="background:' + getColorVoteCoin(grades[i]) + '"></i>' +
 						from[i]
 					);
 				}
