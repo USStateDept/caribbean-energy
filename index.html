@@ -603,7 +603,7 @@
 			new L.Control.Zoom({ position: 'topright' }).addTo(map);
 			
 			$(document).one("ajaxStop", function() {
-				map.addLayer(geoJsonLayerGDP);
+				allLayersGroup.addLayer(geoJsonLayerGDP),map.addLayer(allLayersGroup)
 				legendGDP.addTo(map);
 				sidebarGDP.toggle();
 			$("#loading").hide();
