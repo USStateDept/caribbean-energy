@@ -470,16 +470,14 @@
 			}
 			
 			function getColorVoteCoin(d) {
-				if (d > 1.25) {
-					return	'#009250'
-				} else if (d > 1.1) {
-					return	'#7cad76'
+				if (d > 1.2) {
+					return	'#51493f'
 				} else if (d > 1) {
+					return	'#776b59'
+				} else if (d > .8) {
+					return	'#a5977a'
+				} else if (d > .6) {
 					return	'#e0d2a4'
-				} else if (d > .9) {
-					return	'#d28963'
-				} else if (d > .75) {
-					return	'#c54831'
 				} else {
 					return	'#dedddd';
 				}
@@ -771,13 +769,13 @@
 				currentSidebar = sidebarVoteCoin;
 				sidebarVoteCoin.addTo(map);
 				var div = L.DomUtil.create('div'),
-					grades = ['1.251', '1.11', '1.01', '0.91', '0.751', 'No Data'],
+					grades = ['1.21', '1.01', '0.81', '0.61', 'No Data'],
 					// this is something like a subheader
 					labels = [],
 					from;
 
 				for (var i = 0; i < grades.length; i++) {
-					from = ['Greater than 1.25', '1.1 to 1.25', '1.01 to 1.09', '0.9 to 1', '0.75 to .89', 'No data'];
+					from = ['Greater than 1.2', '1.1 to 1.2', '0.81 to 1', '0.61 to 0.8', 'No data'];
 					
 					labels.push(
 						'<i style="background:' + getColorVoteCoin(grades[i]) + '"></i>' +

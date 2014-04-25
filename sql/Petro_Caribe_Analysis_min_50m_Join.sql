@@ -27,6 +27,7 @@ WHERE
 	ne_50m_admin_0_countries_lakes.sovereignt = 'Antigua and Barbuda' OR
 	ne_50m_admin_0_countries_lakes.sovereignt = 'Barbados' OR
 	ne_50m_admin_0_countries_lakes.sovereignt = 'Belize' OR
+	ne_50m_admin_0_countries_lakes.sovereignt = 'Bolivia' OR
 	ne_50m_admin_0_countries_lakes.sovereignt = 'Brazil' OR
 	ne_50m_admin_0_countries_lakes.sovereignt = 'Chile' OR
 	ne_50m_admin_0_countries_lakes.sovereignt = 'Colombia' OR
