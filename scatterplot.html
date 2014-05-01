@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Venezuelan Oil Subsidies -  0.1</title>
+
+        <!-- Core CSS -->
+        <link href="img/usdos-logo-seal.png" rel="shortcut icon">
+		<link href="../lib/bootstrap-3.1.1/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="css/main.css" />
+		<link rel="stylesheet" href="css/scatterplot.css" />
+		<!-- Custom styles for this template -->
+        <style>
+            html, body {
+                height: inherit !important;
+                width: inherit !important;
+                overflow: hidden;
+            }
+            body {
+                padding-top: 50px;
+            }
+			#scatterplot {
+				margin-left: 60px;
+				margin-right: 60px;
+			}
+            input[type="radio"], input[type="checkbox"] {
+                margin: 0;
+            }
+            #loading {
+                position: absolute;
+                width: 220px;
+                height: 19px;
+                top: 50%;
+                left: 50%;
+                margin: -10px 0 0 -110px;
+                z-index: 20001;
+            }
+            .navbar .navbar-brand {
+                font-weight: bold;
+                font-size: 25px;
+                color: white;
+				font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+				letter-spacing: 1px;
+            }
+            .navbar-collapse.in {
+                overflow-y: hidden;
+            }
+            @media (max-width: 992px) {
+                .navbar .navbar-brand {
+                    font-size: 18px;
+                    float: left;
+                }
+                .search-container {
+                    width: 150px;
+                }
+            }
+            @media (max-width: 767px){
+                .search-container {
+                    width: 100%;
+                }
+                .url-break {
+                    word-break: break-all;
+                    word-break: break-word;
+                    -webkit-hyphens: auto;
+                    hyphens: auto;
+                }
+            }
+            /* Print Handling */
+            @media print {
+                .navbar {
+                    display: none !important;
+                }
+                .leaflet-control-container {
+                    display: none !important;
+                }
+            }
+			
+			.navbar-inverse {
+			background-color: rgb(25,95,164);
+			}
+			.navbar-collapse, .navbar-inverse .navbar-form {
+				border-color: rgb(25,95,164);
+			}
+			.dropdown-menu {
+				padding: 10px;
+			}
+        </style>
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+		
+	 </head>
+	 <body>
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Venezuela</a>
+            </div>
+            <div class="navbar-collapse collapse">
+					<ul class="navbar-right navbar-inverse nav navbar-nav">
+						<li class="dropdown">
+							<a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#aboutModal').modal('show'); return false;">About</a>
+						</li>
+					</ul>
+				<ul class="nav navbar-nav">
+					<li class="dropdown">
+						<a href="PC_overview_v2.pdf" data-toggle="collapse" data-target=".navbar-collapse.in">Overview</a>
+					</li>
+					<li class="dropdown">
+						<a href="index.html" data-toggle="collapse" data-target=".navbar-collapse.in">Map</a>
+					</li>
+                </ul>
+            </div><!--/.navbar-collapse -->
+        </div>
+
+        <div id="scatterplot">
+			<h1>PetroCaribe and the Venezuelan crisis</h1>
+			<p>The charts below explore the impact of the PetroCaribe oil subsidies in the Western Hemisphere. The scatterplot at left shows the relationship between a PetroCaribe subsidy recipient's debt and the annual financing received from Venezuela relative to that countries GDP.The chart at right shows the relationship between each subsidy recipients' overall proximity to the U.S. voting position in the UN during the post Cold War period and the 2015 Department of State and USAID foreign assistance request base as a percent of GDP.
+				<br/><br/>
+				<svg height="11px" width="10px"><circle cx="5" cy="6" r="5" fill="#525252" /></svg>     The relative size of the bubble represents the amount of the PetroCaribe annual financing in dollar amounts.
+			</p>
+			<div id="left"></div>
+			<div id="right"></div>
+		</div>
+       
+	   <div class="modal fade" id="aboutModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Venezuelan Oil Subsidies</h4>
+                    </div>
+
+                    <div class="modal-body">
+                         <ul id="aboutTabs" class="nav nav-tabs">
+                            <li class="active">
+								<a href="#faqs" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;FAQs</a>
+							</li>
+                            <li>
+								<a href="#about" data-toggle="tab"><i class="fa fa-check-square"></i>&nbsp;About the project</a>
+							</li>
+                            <li>
+								<a href="#disclaimer" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Disclaimer</a>
+							</li>
+                            <li>
+                                <a href="#contact" data-toggle="tab"><i class="fa fa-envelope"></i>&nbsp;Contact us</a>
+                            </li>
+                        </ul>
+                        <div id="aboutTabsContent" class="tab-content" style="padding-top: 10px;">
+                            <div class="tab-pane fade active in" id="faqs">
+                                <p>Below are a number of frequently asked questions (FAQs). If an answer to your specific need is not provided, please contact our support team!</p>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        Questions
+                                    </div>
+                                    <ul class="list-group">
+                                        <li class="list-group-item">Question 1</li>
+                                        <li class="list-group-item">Question 2</li>
+                                        <li class="list-group-item">Question 3</li>
+                                        <li class="list-group-item">Question 4</li>
+                                        <li class="list-group-item">Question 5</li>
+                                </div>
+                            </div>
+							<div class="tab-pane fade" id="about">
+                                <p>This is a proof-of-concept for a data visualization on Venezuelan oil subsidies. Specifically, it compares Dept-to-GSP ratio and Annual Financing as a percent of GDP (oil subsidies from Venezuela). It accomplishes this using an interactive map with a bivariate classification scheme.</p>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        Features
+                                    </div>
+                                    <ul class="list-group">
+                                        <li class="list-group-item">This app is mobile ready!</li>
+                                        <li class="list-group-item">Data citations and downloads</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade text-danger" id="disclaimer">
+                                <p>This tool and the information provided herein are solely a proof-of-concept being developed by the Office of eDiplomacy's Geo|DST.. If you are interested in this project, please direct your feedback to eDip!</p>
+                            </div>
+                            <div class="tab-pane fade" id="contact">
+                                <form id="contact-form">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label for="name">Name:</label>
+                                            <input type="text" class="form-control" id="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email:</label>
+                                            <input type="text" class="form-control" id="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="comment">Comment:</label>
+                                            <textarea class="form-control" rows="3" id="comment"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal">Submit</button>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+				
+		<script src="../lib/jquery/jquery-1.11.0.min.js"></script>
+		<script src="../lib/bootstrap-3.1.1/dist/js/bootstrap.js"></script>
+		<script type="text/javascript" src="js/host.js"></script>
+		<script src="../lib/d3/d3.js"></script>
+		<script>
+			var margin = {top: 40, right: 40, bottom: 40, left: 40},
+			width = 450 - margin.left - margin.right,
+			height = 450 - margin.top - margin.bottom;
+
+
+
+			var formatFixedPercent = d3.format(".1%"),
+				formatPercent = d3.format(".0%"),
+				formatPercentprecise = function(x) { return formatFixedPercent(x).replace(/\.00+%$$/, "%"); };
+				formatPercentprecisesmall = function(x) { return formatFixedPercent(x).replace(/\.+%$$/, "%"); };	
+
+
+			var DebtGDPscale = [0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4], 
+				AnnFinscale = [0.0, 0.02, 0.04, 0.06, 0.08], 
+				FtoGDPscale = [0.0, 0.001, 0.002, 0.003, 0.004, 0.005]
+
+			// load data
+			d3.csv("assets/petro_caribe.csv", function(error, data) {
+
+			// change string (from CSV) into number format
+			data.forEach(function(d) {
+				d.CountryFixed = d.CountryFixed;
+				d.Country = d.Country;
+				d.DebtGDP = +d.DebtGDP;
+				d.AnnFin = +d.AnnFin;
+				d.FtoGDP = +d.FtoGDP;
+				d.VoteCoin = +d.VoteCoin;
+				d.NomGDP = +d.NomGDP;
+				d.AnnFinRaw = +d.AnnFinRaw;
+				d.IMF = d.IMF;
+				d.CABGDP = +d.CABGDP;
+				d.AnnFinRaw = +d.AnnFinRaw;
+
+			//    console.log(d);
+			});
+
+			console.log(data);
+
+
+
+			var radiusValue = function(d) { return d.AnnFinRaw;},
+				size = d3.scale.linear()
+				.domain([0, d3.max(data, radiusValue)])
+				.range([3, 15]);
+
+			var getGDP = function(d) { return d.NomGDP; };
+
+			var getAnnFinRaw = function(d) { return d.AnnFinRaw; };
+
+			var IMF = function(d) { return d.IMF; };
+
+			//*********************************Debt to Ann Fin********************************
+
+			// setup x 
+			var debtxValue = function(d) { return d.DebtGDP;}, // data -> value
+				debtxScale = d3.scale.linear().range([0, width]).clamp(true), // value -> display
+				debtxMap = function(d) { return debtxScale(debtxValue(d));}, // data -> display
+				debtxAxis = d3.svg.axis().scale(debtxScale).orient("bottom").tickFormat(formatPercent).tickValues(DebtGDPscale)
+					.outerTickSize([0]).innerTickSize([6]).tickPadding([2]);
+				xAxisdummy = d3.svg.axis()
+					.scale(debtxScale)
+					.orient("bottom")
+					.tickValues([])
+					.outerTickSize([0])
+					.innerTickSize([0])
+					.tickPadding([0]);
+
+			// setup y
+			var debtyValue = function(d) { return d.AnnFin;}, // data -> value
+				debtyScale = d3.scale.linear().range([height, 0]).clamp(true), // value -> display
+				debtyMap = function(d) { return debtyScale(debtyValue(d));}, // data -> display
+				debtyAxis = d3.svg.axis().scale(debtyScale).orient("left").tickFormat(formatPercent).outerTickSize([0])
+					.innerTickSize([4]).tickPadding([2]);
+			yAxisdummy = d3.svg.axis()
+				.scale(debtxScale)
+				.orient("bottom")
+				.tickValues([])
+				.outerTickSize([0])
+				.innerTickSize([0])
+				.tickPadding([0]);
+
+			// add the graph canvas to the body of the webpage
+			var svg = d3.select("#left").append("svg")
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+				.style("float", "left")
+				.append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+				.attr("class", "debtarea");
+
+			// add the tooltip area to the webpage
+			var tooltip = d3.select("body").append("div")
+				.attr("class", "tooltip")
+				.style("opacity", 0);
+
+			//left rectangles
+
+			var rectangle = svg.append("rect")
+				.attr("x", 1)
+				.attr("y", 1)
+				.attr("width", 90)
+				.attr("height", 263)
+				.style("fill", '#fdd782')
+				.style("fill-opacity", 1) ;
+
+			var rectangle = svg.append("rect")
+				.attr("x", 1)
+				.attr("y", 264)
+				.attr("width", 90)
+				.attr("height", 107)
+				.style("fill", '#dbcac1')
+				.style("fill-opacity", 1) ;
+
+			//rigth rectangles
+
+			var rectangle = svg.append("rect")
+				.attr("x", 91)
+				.attr("y", 1)
+				.attr("width", 279)
+				.attr("height", 263)
+				.style("fill", '#da8568')
+				.style("fill-opacity", 1) ;
+
+			var rectangle = svg.append("rect")
+				.attr("x", 91)
+				.attr("y", 264)
+				.attr("width", 279)
+				.attr("height", 107)
+				.style("fill", '#9ec8eb')
+				.style("fill-opacity", 1) ;
+
+			// don't want dots overlapping axis, so add in buffer to data domain
+  			debtxScale.domain([d3.min(data, debtxValue), d3.max(data, debtxValue)]);
+  			debtyScale.domain([d3.min(data, debtyValue), d3.max(data, debtyValue)]);
+
+
+  
+  			// x-axis
+  			svg.append("g")
+      			.attr("class", "x axis")
+      			.attr("transform", "translate(0," + height + ")")
+      			.call(debtxAxis)
+    			.append("text")
+      			.attr("class", "label")
+      			.attr("x", width)
+      			.attr("y", 35)
+      			.attr("dx", -185)
+      			.style("text-anchor", "middle")
+      			.text("Debt as a Percent of GDP");
+
+			// dummy x-axis to create inner/left label
+  			svg.append("g")
+      			.attr("class", "dummyaxis")
+      			.attr("transform", "translate(0," + height + ")")
+      			.call(xAxisdummy)
+    			.append("text")
+      			.attr("class", "label")
+      			.attr("x", width/4)
+      			.attr("y", -10)
+      			.style("text-anchor", "middle")
+      			.text("Less Debt")
+      			.style("fill", "#000")
+      			.style("font-size", "10px");
+
+			// dummy x-axis to create inner/right label
+  			svg.append("g")
+				.attr("class", "dummyaxis")
+      			.attr("transform", "translate(0," + height + ")")
+      			.call(xAxisdummy)
+    			.append("text")
+      			.attr("class", "label")
+      			.attr("x", (width/4)*3)
+      			.attr("y", -10)
+      			.style("text-anchor", "middle")
+      			.text("More Debt")
+      			.style("fill", "#000")
+      			.style("font-size", "10px");
+
+  			// y-axis
+  			svg.append("g")
+      			.attr("class", "y axis")
+      			.call(debtyAxis)
+    			.append("text")
+      			.attr("class", "label")
+      			.attr("transform", "rotate(-90)")
+      			.attr("y", -40)
+      			.attr("x", -180)
+      			.attr("dy", 12)
+      			.style("text-anchor", "middle")
+      			.text("Annual Financing as a Percent of GDP");
+
+			// dummy y-axis to create inner/lower label
+ 			svg.append("g")
+      			.attr("class", "dummyaxis")
+      			.call(yAxisdummy)
+      			.append("text")
+      			.attr("class", "label")
+      			.attr("transform", "rotate(-90)")
+			    .attr("y", 0)
+      			.attr("dy", 15)
+      			.attr("x", - height/2 - 35 )
+      			.style("text-anchor", "end")
+      			.text("Less PetroCaribe Financing")
+      			.style("fill", "#000")
+      			.style("font-size", "10px");
+
+ 			// dummy y-axis to create inner/upper label
+ 			svg.append("g")
+      			.attr("class", "dummyaxis")
+      			.call(yAxisdummy)
+      			.append("text")
+      			.attr("class", "label")
+      			.attr("transform", "rotate(-90)")
+      			.attr("y", 0)
+      			.attr("dy", 15)
+      			.attr("x", - 25)
+      			.style("text-anchor", "end")
+      			.text("More PetroCaribe Financing")
+      			.style("fill", "#000")
+      			.style("font-size", "10px");
+	
+			// draw dots
+  			svg.selectAll(".dot")
+      			.data(data)
+    			.enter().append("circle")
+			    .attr("class", "dot")
+      			.attr("class", function(d) { return d.CountryFixed ;})
+      			.attr("r", function(d) { return size(radiusValue(d));})
+      			.attr("cx", debtxMap )
+      			.attr("cy", debtyMap )
+      			.style("fill", '#525252') 
+      			.on("mouseover", function(d) {
+          			tooltip.transition()
+               			.duration(200)
+               			.style("opacity", .9);
+          			tooltip.html("<strong>" + d["Country"] + "</strong>" + "<br/> " 
+						+ "Debt to GDP: " + formatPercent(debtxValue(d)) 
+						+ "<br/> " + "Ann. Financing: " + formatPercentprecisesmall(debtyValue(d))
+						+ "<br/> " + "GDP (bil USD): " + getGDP(d)
+						+ "<br/> " + "Ann Fin (mil USD): " + getAnnFinRaw(d)
+						+ "<br/> " + "IMF Program: " + IMF(d))
+               		.style("left", (d3.event.pageX + 15) + "px")
+               		.style("top", (d3.event.pageY - 28) + "px")
+
+					var circleUnderMouse = this.getAttribute("class");
+						d3.selectAll('circle').transition().
+						style('opacity',function () {
+							return (this.getAttribute("class") === circleUnderMouse) ? 1 : 0.3;
+						})
+						.style('fill',function () {
+							return (this.getAttribute("class") === circleUnderMouse) ? "#54278f" : 
+							function(d) { return color(cValue(d));};
+						});    		
+					;
+				})
+				
+				.on("mouseout", function(d) {
+					tooltip.transition()
+					.duration(500)
+					.style("opacity", 0);
+					d3.selectAll('circle').transition().style('opacity', 1)
+					.style("fill", '#525252'); 
+				});
+
+//*********************************Vote Coin to F ********************************
+
+
+
+
+// setup x 
+var votexValue = function(d) { return d.VoteCoin;}, // data -> value
+    votexScale = d3.scale.linear().range([0, width]).clamp(true), // value -> display
+    votexMap = function(d) { return votexScale(votexValue(d));}, // data -> display
+    votexAxis = d3.svg.axis().scale(votexScale).orient("bottom").outerTickSize([0])
+		.innerTickSize([6]).tickPadding([2]);
+   xAxisdummy = d3.svg.axis()
+    	.scale(debtxScale)
+    	.orient("bottom")
+		.tickValues([])
+		.outerTickSize([0])
+		.innerTickSize([0])
+		.tickPadding([0]);
+
+// setup y
+var voteyValue = function(d) { return d.FtoGDP;}, // data -> value
+    voteyScale = d3.scale.linear().range([height, 0]).clamp(true), // value -> display
+    voteyMap = function(d) { return voteyScale(voteyValue(d));}, // data -> display
+    voteyAxis = d3.svg.axis().scale(voteyScale).orient("left").outerTickSize([0])
+		.tickValues(FtoGDPscale).tickFormat(formatPercentprecisesmall)
+		.innerTickSize([4]).tickPadding([0]);
+   yAxisdummy = d3.svg.axis()
+    	.scale(debtxScale)
+    	.orient("bottom")
+		.tickValues([])
+		.outerTickSize([0])
+		.innerTickSize([0])
+		.tickPadding([0]);
+
+
+// add the graph canvas to the body of the webpage
+var svg = d3.select("#right").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .style("float", "left")
+  .append("g")
+    .attr("transform", "translate(" + 50 + "," + margin.top + ")")
+    .attr("class", "debtarea");
+
+// add the tooltip area to the webpage
+var tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+
+//left rectangles
+
+//var rectangle = svg.append("rect")
+//	.attr("x", 1)
+//	.attr("y", 1)
+//	.attr("width", 185)
+//	.attr("height", 185)
+//	.style("fill", '#fecc5c')
+//	.style("fill-opacity", 0.75) ;
+
+//var rectangle = svg.append("rect")
+//	.attr("x", 1)
+//	.attr("y", 186)
+//	.attr("width", 185)
+//	.attr("height", 185)
+//	.style("fill", '#bdd7e7')
+//	.style("fill-opacity", 0.75) ;
+
+//rigth rectangles
+
+//var rectangle = svg.append("rect")
+//	.attr("x", 186)
+//	.attr("y", 1)
+//	.attr("width",185)
+//	.attr("height", 185)
+//	.style("fill", '#f68c3f')
+//	.style("fill-opacity", 0.75) ;
+
+//var rectangle = svg.append("rect")
+//	.attr("x", 186)
+//	.attr("y", 186)
+//	.attr("width", 185)
+//	.attr("height", 185)
+//	.style("fill", '#6aadd5')
+//	.style("fill-opacity", 0.75) ;
+
+
+
+  // don't want dots overlapping axis, so add in buffer to data domain
+  votexScale.domain([d3.min(data, votexValue), d3.max(data, votexValue)]);
+  voteyScale.domain([d3.min(data, voteyValue), 0.005]);
+
+
+  // x-axis
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(votexAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("x", width)
+      .attr("y", 35)
+      .attr("dx", -185)
+      .style("text-anchor", "middle")
+      .text("Distance from U.S. Voting Position in the U.N.");
+
+
+ // dummy x-axis to create inner/left label
+  svg.append("g")
+      .attr("class", "dummyaxis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxisdummy)
+    .append("text")
+      .attr("class", "label")
+      .attr("x", width/4)
+      .attr("y", -10)
+      .style("text-anchor", "middle")
+      .text("Closer to U.S. Position")
+      .style("fill", "#000")
+      .style("font-size", "10px");
+
+ // dummy x-axis to create inner/right label
+  svg.append("g")
+      .attr("class", "dummyaxis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxisdummy)
+    .append("text")
+      .attr("class", "label")
+      .attr("x", (width/4)*3)
+      .attr("y", -10)
+      .style("text-anchor", "middle")
+      .text("Further from U.S. Position")
+      .style("fill", "#000")
+      .style("font-size", "10px");
+
+
+
+
+  // y-axis
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(voteyAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -45)
+      .attr("x", -180)
+      .attr("dy", 12)
+      .attr("line-height", "20px")
+      .style("text-anchor", "middle")
+      .text("U.S. Foreign Assistance as a Percent of GDP");
+
+
+ // dummy y-axis to create inner/lower label
+ svg.append("g")
+      .attr("class", "dummyaxis")
+      .call(yAxisdummy)
+      .append("text")
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0)
+      .attr("dy", 15)
+      .attr("x", - height/2 - 35 )
+      .style("text-anchor", "end")
+      .text("Less U.S. Aid")
+      .style("fill", "#000")
+      .style("font-size", "10px");
+
+ // dummy y-axis to create inner/upper label
+ svg.append("g")
+      .attr("class", "dummyaxis")
+      .call(yAxisdummy)
+      .append("text")
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0)
+      .attr("dy", 15)
+      .attr("x", - 25)
+      .style("text-anchor", "end")
+      .text("More U.S. Aid")
+      .style("fill", "#000")
+      .style("font-size", "10px");
+
+
+
+
+  // draw dots
+  svg.selectAll(".dot")
+      .data(data)
+    .enter().append("circle")
+      .attr("class", "dot")
+      .attr("class", function(d) { return d.CountryFixed ;})
+      .attr("r", function(d) { return size(radiusValue(d));})
+      .attr("cx", votexMap )
+      .attr("cy", voteyMap )
+      .style("fill", '#525252') 
+      .on("mouseover", function(d) {
+          tooltip.transition()
+               .duration(200)
+               .style("opacity", .9);
+          tooltip.html("<strong>" + d["Country"] + "</strong>" + "<br/> " 
+	+ "Voting Coincidence: " + (votexValue(d)) 
+	        + "<br/> " + "Foreign Assistance: " + formatPercentprecisesmall(voteyValue(d))
+		+ "<br/> " + "GDP (bil USD): " + getGDP(d)
+		+ "<br/> " + "Ann Fin (mil USD): " + getAnnFinRaw(d)
+		+ "<br/> " + "IMF Program: " + IMF(d))
+               .style("left", (function() { return (d3.event.pageX > 800) ? d3.event.pageX - 175 + "px": d3.event.pageX + 15 + "px";}))
+               .style("top", (d3.event.pageY - 28) + "px")
+
+
+var circleUnderMouse = this.getAttribute("class");
+    			d3.selectAll('circle').transition().
+    			style('opacity',function () {
+        		return (this.getAttribute("class") === circleUnderMouse) ? 1 : 0.3;
+    			})
+    			.style('fill',function () {
+        		return (this.getAttribute("class") === circleUnderMouse) ? "#54278f" : 
+			function(d) { return color(cValue(d));};
+    			});    		
+
+
+;
+      })
+      .on("mouseout", function(d) {
+          tooltip.transition()
+               .duration(500)
+               .style("opacity", 0);
+	d3.selectAll('circle').transition().style('opacity', 1)
+            	.style("fill", '#525252'); 
+      });
+
+
+
+
+d3.selectAll(".tick")
+  .style("font-size", "10px");
+
+
+});
+        </script>
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			siteParams();
+			ga('create', gaID, host);
+			ga('send', 'pageview');
+		</script>
+    </body>
+</html>
