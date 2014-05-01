@@ -1,0 +1,63 @@
+H1 {
+ font: 18px sans-serif;
+}
+
+
+
+body {
+  font: 13px sans-serif;
+  margin-left: 60px;
+  margin-top: 20px;
+  margin-right: 60px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #d3d3d3;
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+}
+
+.dummyaxis {
+  fill: none;
+  stroke: none;
+}
+
+.dot {
+
+}
+
+.tooltip {
+  position: absolute;
+  width: 155px;
+  height: 90px;
+  pointer-events: none;
+  background-color: #ffffff;
+  opacity: 0.2;
+  padding-left: 5px;
+  padding-top: 5px;
+  border: 1px solid #636363;
+  border-radius:10px;
+}
+
+
+.rect {
+  fill-opacity: 0.5;
+}
+
+.axistext {
+  font: 8px sans-serif;
+}
+
+#left {
+  width: 450px;
+  height: 450px;
+  float: left;
+}
+
+#right {
+  width: 450px;
+  height: 450px;
+  float: right;
+}
