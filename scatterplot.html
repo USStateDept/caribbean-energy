@@ -8,7 +8,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Venezuelan Oil Subsidies -  0.1</title>
+        <title>Caribbean Energy</title>
 
         <!-- Core CSS -->
         <link href="img/usdos-logo-seal.png" rel="shortcut icon">
@@ -90,6 +90,7 @@
 			.dropdown-menu {
 				padding: 10px;
 			}
+			
         </style>
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -107,7 +108,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Venezuela</a>
+                <a class="navbar-brand" href="#">Caribbean Energy</a>
             </div>
             <div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
@@ -122,13 +123,16 @@
         </div>
 
         <div id="scatterplot">
-			<h1>PetroCaribe and the Venezuelan crisis</h1>
-			<p>The charts below explore the impact of the PetroCaribe oil subsidies in the Western Hemisphere. The scatterplot at left shows the relationship between a PetroCaribe subsidy recipient's debt and the annual financing received from Venezuela relative to that countries GDP.The chart at right shows the relationship between each subsidy recipients' overall proximity to the U.S. voting position in the UN during the post Cold War period and the 2015 Department of State and USAID foreign assistance request base as a percent of GDP.
+			<h1>Petrocaribe and the Venezuelan crisis</h1>
+			<p>The charts below explore the impact of the Petrocaribe oil subsidies in the Western Hemisphere. The scatterplot at left shows the relationship between a Petrocaribe subsidy recipient's debt and the annual financing received from Venezuela relative to that countries GDP.The chart at right shows the relationship between each subsidy recipients' overall proximity to the U.S. voting position in the UN during the post Cold War period and the 2015 Department of State and USAID foreign assistance request base as a percent of GDP.</p>
 				<br/><br/>
-				<svg height="11px" width="10px"><circle cx="5" cy="6" r="5" fill="#525252" /></svg>     The relative size of the bubble represents the amount of the PetroCaribe annual financing in dollar amounts.
-			</p>
-			<div id="left"></div>
-			<div id="right"></div>
+			<div id="chartDiv">
+				<svg height="11px" width="10px"><circle cx="5" cy="6" r="5" fill="#525252" /></svg>     The relative size of the bubble represents the amount of the Petrocaribe annual financing in dollar amounts.
+			</div>
+			<div style="overflow-y: scroll; height: 500px;">
+				<div id="left" style="height: 500px"></div>
+				<div id="right" style="height: 500px"></div>
+			</div>
 		</div>
        
 		<script src="../lib/jquery/jquery-1.11.0.min.js"></script>
@@ -139,8 +143,6 @@
 			var margin = {top: 40, right: 40, bottom: 40, left: 40},
 			width = 450 - margin.left - margin.right,
 			height = 450 - margin.top - margin.bottom;
-
-
 
 			var formatFixedPercent = d3.format(".1%"),
 				formatPercent = d3.format(".0%"),
@@ -338,7 +340,7 @@
       			.attr("dy", 15)
       			.attr("x", - height/2 - 35 )
       			.style("text-anchor", "end")
-      			.text("Less PetroCaribe Financing")
+      			.text("Less Petrocaribe Financing")
       			.style("fill", "#000")
       			.style("font-size", "10px");
 
@@ -353,7 +355,7 @@
       			.attr("dy", 15)
       			.attr("x", - 25)
       			.style("text-anchor", "end")
-      			.text("More PetroCaribe Financing")
+      			.text("More Petrocaribe Financing")
       			.style("fill", "#000")
       			.style("font-size", "10px");
 	
