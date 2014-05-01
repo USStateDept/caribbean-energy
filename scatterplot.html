@@ -110,11 +110,6 @@
                 <a class="navbar-brand" href="#">Venezuela</a>
             </div>
             <div class="navbar-collapse collapse">
-					<ul class="navbar-right navbar-inverse nav navbar-nav">
-						<li class="dropdown">
-							<a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#aboutModal').modal('show'); return false;">About</a>
-						</li>
-					</ul>
 				<ul class="nav navbar-nav">
 					<li class="dropdown">
 						<a href="PC_overview_v2.pdf" data-toggle="collapse" data-target=".navbar-collapse.in">Overview</a>
@@ -136,85 +131,6 @@
 			<div id="right"></div>
 		</div>
        
-	   <div class="modal fade" id="aboutModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Venezuelan Oil Subsidies</h4>
-                    </div>
-
-                    <div class="modal-body">
-                         <ul id="aboutTabs" class="nav nav-tabs">
-                            <li class="active">
-								<a href="#faqs" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;FAQs</a>
-							</li>
-                            <li>
-								<a href="#about" data-toggle="tab"><i class="fa fa-check-square"></i>&nbsp;About the project</a>
-							</li>
-                            <li>
-								<a href="#disclaimer" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Disclaimer</a>
-							</li>
-                            <li>
-                                <a href="#contact" data-toggle="tab"><i class="fa fa-envelope"></i>&nbsp;Contact us</a>
-                            </li>
-                        </ul>
-                        <div id="aboutTabsContent" class="tab-content" style="padding-top: 10px;">
-                            <div class="tab-pane fade active in" id="faqs">
-                                <p>Below are a number of frequently asked questions (FAQs). If an answer to your specific need is not provided, please contact our support team!</p>
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        Questions
-                                    </div>
-                                    <ul class="list-group">
-                                        <li class="list-group-item">Question 1</li>
-                                        <li class="list-group-item">Question 2</li>
-                                        <li class="list-group-item">Question 3</li>
-                                        <li class="list-group-item">Question 4</li>
-                                        <li class="list-group-item">Question 5</li>
-                                </div>
-                            </div>
-							<div class="tab-pane fade" id="about">
-                                <p>This is a proof-of-concept for a data visualization on Venezuelan oil subsidies. Specifically, it compares Dept-to-GSP ratio and Annual Financing as a percent of GDP (oil subsidies from Venezuela). It accomplishes this using an interactive map with a bivariate classification scheme.</p>
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        Features
-                                    </div>
-                                    <ul class="list-group">
-                                        <li class="list-group-item">This app is mobile ready!</li>
-                                        <li class="list-group-item">Data citations and downloads</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade text-danger" id="disclaimer">
-                                <p>This tool and the information provided herein are solely a proof-of-concept being developed by the Office of eDiplomacy's Geo|DST.. If you are interested in this project, please direct your feedback to eDip!</p>
-                            </div>
-                            <div class="tab-pane fade" id="contact">
-                                <form id="contact-form">
-                                    <fieldset>
-                                        <div class="form-group">
-                                            <label for="name">Name:</label>
-                                            <input type="text" class="form-control" id="name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email">Email:</label>
-                                            <input type="text" class="form-control" id="email">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="comment">Comment:</label>
-                                            <textarea class="form-control" rows="3" id="comment"></textarea>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal">Submit</button>
-                                    </fieldset>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-
-				
 		<script src="../lib/jquery/jquery-1.11.0.min.js"></script>
 		<script src="../lib/bootstrap-3.1.1/dist/js/bootstrap.js"></script>
 		<script type="text/javascript" src="js/host.js"></script>
