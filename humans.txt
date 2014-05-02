@@ -1,0 +1,23 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    U.S. Department of State, Office of eDiplomacy's GIS Team
+	@bryant-edip -- Senior GIS Developer
+	@brodydittemore -- GIS Business Analyst / Developer
+	@brandomr -- Data Scientist
+	
+# CLIENT
+	Developed for the Counselor of the U.S. Department of State
+
+# THANKS
+
+    Office of eDiplomacy
+		http://www.state.gov/m/irm/ediplomacy/
+		@eDipatstate
+		@eDiplomacy
+
+# TECHNOLOGY COLOPHON
+
+    HTML, CSS3, OpenGeo, LeafletJS, jQuery, Bootstrap
