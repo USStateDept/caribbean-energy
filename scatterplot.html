@@ -20,10 +20,12 @@
             html, body {
                 height: inherit !important;
                 width: inherit !important;
-                overflow: hidden;
             }
-            body {
-                padding-top: 50px;
+            html {
+				overflow-y: scroll;
+            }
+			body {
+				padding-top: 50px;
             }
 			input[type="radio"], input[type="checkbox"] {
                 margin: 0;
@@ -118,7 +120,7 @@
             </div><!--/.navbar-collapse -->
         </div>
 
-        <div id="scatterplot">
+        <div>
 			<div id="scatterText">
 				<h1>Petrocaribe and the Venezuelan crisis</h1>
 				<p>The charts below explore the impact of the Petrocaribe oil financing in the Western Hemisphere. The scatterplot at left shows the relationship between a Petrocaribe financing recipient's debt and the annual financing received from Venezuela relative to that countries GDP.The chart at right shows the relationship between each financing recipients' overall proximity to the U.S. voting position in the UN during the post Cold War period and the 2015 Department of State and USAID foreign assistance request base as a percent of GDP.</p>
@@ -127,9 +129,9 @@
 					<svg height="11px" width="10px"><circle cx="5" cy="6" r="5" fill="#525252" /></svg>     The relative size of the bubble represents the amount of the Petrocaribe annual financing in dollar amounts.
 				</div>
 			</div>
-			<div style="overflow-y: scroll; height: 500px; padding-top:20px;">
-				<div id="left"></div>
-				<div id="right"></div>
+			<div>
+				<div id="left" class="scatterplot"></div>
+				<div id="right" class="scatterplot"></div>
 			</div>
 		</div>
 		<script src="../lib/jquery/jquery-1.11.0.min.js"></script>
