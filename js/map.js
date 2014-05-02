@@ -314,9 +314,9 @@
 
 				var name = "Annual Financing (2012)";
 				var description = "<h5 class='lorem'></h5>";
-				var keyText = "";
+				var keyText = "Percent of GDP";
 				var key = labels.join('<br>');
-				sidebarAF.setContent('<h4>' + name + "</h4><div class='legend'>" + key + '</div>');
+				sidebarAF.setContent('<h4>' + name + "<br /><small>" +  keyText + "</small></h4><div class='legend'>" + key + '</div>');
 				
 				return div;
 			};
