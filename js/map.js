@@ -285,10 +285,10 @@
 
 				var name = "Debt-To-GDP Ratio (2013)";
 				var description = "<h5 class='lorem'></h5>";
-				var keyText = "";
+				var keyText = "Percent";
 				var key = labels.join('<br>');
 				//sidebarDebtToGDP.setContent('<h4>' + name + '</h4>' + description + "<br/><h5 style='font-weight:bold'>" + keyText + "</h5>" + "<div class='legend'>" + key + '</div>');
-				sidebarDebtToGDP.setContent('<h4>' + name + "</h4><div class='legend'>" + key + '</div>');
+				sidebarDebtToGDP.setContent('<h4>' + name + "<br /><small>" +  keyText + "</small></h4><div class='legend'>" + key + '</div>');
 				
 				return div;
 			};
