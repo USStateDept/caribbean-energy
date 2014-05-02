@@ -1,13 +1,8 @@
 H1 {
  font: 18px sans-serif;
 }
-
-
-
 body {
   font: 13px sans-serif;
-  margin-top: 20px;
-  margin-right: 60px;
 }
 
 .axis path,
@@ -53,10 +48,16 @@ body {
   width: 450px;
   height: 450px;
   float: left;
+  padding-left: 30px;
 }
 
 #right {
   width: 450px;
   height: 450px;
-  float: right;
+  float: left;
+  padding-left: 30px;
 }
+#scatterText {
+	margin-right: 30px;
+	margin-left: 30px;
+{
