@@ -1,10 +1,9 @@
-H1 {
- font: 18px sans-serif;
-}
 body {
   font: 13px sans-serif;
 }
-
+.nav {
+  font: 14px sans-serif !important;
+}
 .axis path,
 .axis line {
   fill: none;
