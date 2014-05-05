@@ -29,7 +29,7 @@ input[type="radio"], input[type="checkbox"] {
 	letter-spacing: 1px;
 }
 .navbar-collapse.in {
-  overflow-y: hidden;
+	overflow-y: hidden;
 }
 @media (max-width: 992px) {
   .navbar .navbar-brand {
@@ -90,10 +90,13 @@ input[type="radio"], input[type="checkbox"] {
 				height: 95px !important;
 			}
 			.navbar-inverse {
-			background-color: rgb(25,95,164);
+				background-color: rgb(25,95,164);
 			}
 			.navbar-collapse, .navbar-inverse .navbar-form {
 				border-color: rgb(25,95,164);
+			}
+			.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+				background-color: #428bca;
 			}
 			.info {
 				padding: 6px 8px;
