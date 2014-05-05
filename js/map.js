@@ -471,7 +471,7 @@
 			var popContent = "";
 			//if(feature.properties.Country!=null){
 			
-			var popupContent = "<h4>" + feature.properties.Country + "</h4><h5>Nominal GDP (2013): US$" + feature.properties.Nominal_GDP_USD_2013 + "</h5><h5>Debt to GDP Ratio: " + feature.properties.DebtToGDP_Ratio_2013 + "%</h5><h5>Annual Financing: " + feature.properties.Annual_Financing_2012 + "% GDP</h5><h5>U.S. Foreign Assistance: " + feature.properties.F_GDP + "% GDP</h5><h5>Distance from U.S. Voting Position in the U.N.: " + feature.properties.VoteCoin + "</h5><h5>IMF Program: " + feature.properties.IMF_Program_2013 + "</h5>";
+			var popupContent = "<h4>" + feature.properties.Country + "</h4><h5>Nominal GDP (2013): US$" + $.number(feature.properties.Nominal_GDP_USD_2013) + "</h5><h5>Debt to GDP Ratio: " + feature.properties.DebtToGDP_Ratio_2013 + "%</h5><h5>Annual Financing: " + feature.properties.Annual_Financing_2012 + "% GDP</h5><h5>U.S. Foreign Assistance: " + feature.properties.F_GDP + "% GDP</h5><h5>Distance from U.S. Voting Position in the U.N.: " + feature.properties.VoteCoin + "</h5><h5>IMF Program: " + feature.properties.IMF_Program_2013 + "</h5>";
 			//}
 			//var popupContent = "<h4>" + feature.properties.Country + "</h4><h5>Nominal GDP (2013): " + feature.properties.Nominal_GDP_2013 + "%</h5><h5>Debt to GDP Ratio: " + feature.properties.DebtToGDP_Ratio_2013 + "%</h5><h5>Annual Financing: " + feature.properties.Annual_Financing_2012 + "% GDP</h5><h5>IMF Program: " + feature.properties.IMF_Program_2013 + "</h5>";
 				if (feature.properties && feature.properties.popupContent && feature.properties.Country) {
