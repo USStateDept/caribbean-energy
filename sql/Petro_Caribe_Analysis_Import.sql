@@ -52,4 +52,4 @@ CREATE TABLE public."Petro_Caribe_Analysis"
 
 set client_encoding to 'UTF-8';
 
-COPY "Petro_Caribe_Analysis" FROM 'C:\OpenGeo\webapps\ve-oil-subsidies\sql\Petro_Caribe_Analysis.csv' DELIMITER ',' CSV;
+COPY "Petro_Caribe_Analysis" FROM 'C:\OpenGeo\webapps\caribbean-energy\sql\Petro_Caribe_Analysis.csv' DELIMITER ',' CSV;
